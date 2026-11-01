@@ -1,6 +1,5 @@
 name: Android Build
 
-
 on:
   push:
     branches: [main]
@@ -46,6 +45,14 @@ jobs:
 
       - name: Build debug APK
         run: ./gradlew assembleOpenDebug
+
+      # --- ADDED: Upload Debug APK Artifact ---
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: wifi-wps-tester-debug-apk
+          path: app/build/outputs/apk/open/debug/*.apk
+          retention-days: 7
 
       - name: Run unit tests
         run: ./gradlew testOpenDebugUnitTest
